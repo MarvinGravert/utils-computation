@@ -1,0 +1,18 @@
+syntax ="proto3";
+
+service PointMatcher{
+    rpc point_matching(input) returns (output){}
+}
+message input{
+    repeated float vector_data1=1;
+    repeated float vector_data2=2;
+    string algorithm=3;
+}
+message output{
+    string status=1;
+    repeated matrix_row hom_matrix=2;
+   
+}
+message matrix_row{
+    repeated float row=1;
+}
