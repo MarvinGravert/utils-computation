@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import point_matching_pb2 as point__matching__pb2
+import point_registration_pb2 as point__registration__pb2
 
 
 class PointMatcherStub(object):
@@ -16,8 +16,8 @@ class PointMatcherStub(object):
         """
         self.point_matching = channel.unary_unary(
                 '/PointMatcher/point_matching',
-                request_serializer=point__matching__pb2.input.SerializeToString,
-                response_deserializer=point__matching__pb2.output.FromString,
+                request_serializer=point__registration__pb2.input.SerializeToString,
+                response_deserializer=point__registration__pb2.output.FromString,
                 )
 
 
@@ -35,8 +35,8 @@ def add_PointMatcherServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'point_matching': grpc.unary_unary_rpc_method_handler(
                     servicer.point_matching,
-                    request_deserializer=point__matching__pb2.input.FromString,
-                    response_serializer=point__matching__pb2.output.SerializeToString,
+                    request_deserializer=point__registration__pb2.input.FromString,
+                    response_serializer=point__registration__pb2.output.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -60,7 +60,7 @@ class PointMatcher(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/PointMatcher/point_matching',
-            point__matching__pb2.input.SerializeToString,
-            point__matching__pb2.output.FromString,
+            point__registration__pb2.input.SerializeToString,
+            point__registration__pb2.output.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
