@@ -1,7 +1,7 @@
 syntax ="proto3";
 
-service PointMatcher{
-    rpc point_matching(input) returns (output){}
+service PointRegistering{
+    rpc registerPoints(input) returns (output){}
 }
 message input{
     repeated float vector_data1=1;

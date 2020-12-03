@@ -5,7 +5,7 @@ import grpc
 import point_registration_pb2 as point__registration__pb2
 
 
-class PointMatcherStub(object):
+class PointRegisteringStub(object):
     """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
@@ -14,42 +14,42 @@ class PointMatcherStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.point_matching = channel.unary_unary(
-                '/PointMatcher/point_matching',
+        self.registerPoints = channel.unary_unary(
+                '/PointRegistering/registerPoints',
                 request_serializer=point__registration__pb2.input.SerializeToString,
                 response_deserializer=point__registration__pb2.output.FromString,
                 )
 
 
-class PointMatcherServicer(object):
+class PointRegisteringServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def point_matching(self, request, context):
+    def registerPoints(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
 
-def add_PointMatcherServicer_to_server(servicer, server):
+def add_PointRegisteringServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'point_matching': grpc.unary_unary_rpc_method_handler(
-                    servicer.point_matching,
+            'registerPoints': grpc.unary_unary_rpc_method_handler(
+                    servicer.registerPoints,
                     request_deserializer=point__registration__pb2.input.FromString,
                     response_serializer=point__registration__pb2.output.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'PointMatcher', rpc_method_handlers)
+            'PointRegistering', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
  # This class is part of an EXPERIMENTAL API.
-class PointMatcher(object):
+class PointRegistering(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def point_matching(request,
+    def registerPoints(request,
             target,
             options=(),
             channel_credentials=None,
@@ -59,7 +59,7 @@ class PointMatcher(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/PointMatcher/point_matching',
+        return grpc.experimental.unary_unary(request, target, '/PointRegistering/registerPoints',
             point__registration__pb2.input.SerializeToString,
             point__registration__pb2.output.FromString,
             options, channel_credentials,

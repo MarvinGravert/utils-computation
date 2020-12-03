@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x18point_registration.proto\"F\n\x05input\x12\x14\n\x0cvector_data1\x18\x01 \x03(\x02\x12\x14\n\x0cvector_data2\x18\x02 \x03(\x02\x12\x11\n\talgorithm\x18\x03 \x01(\t\"9\n\x06output\x12\x0e\n\x06status\x18\x01 \x01(\t\x12\x1f\n\nhom_matrix\x18\x02 \x03(\x0b\x32\x0b.matrix_row\"\x19\n\nmatrix_row\x12\x0b\n\x03row\x18\x01 \x03(\x02\x32\x33\n\x0cPointMatcher\x12#\n\x0epoint_matching\x12\x06.input\x1a\x07.output\"\x00\x62\x06proto3'
+  serialized_pb=b'\n\x18point_registration.proto\"F\n\x05input\x12\x14\n\x0cvector_data1\x18\x01 \x03(\x02\x12\x14\n\x0cvector_data2\x18\x02 \x03(\x02\x12\x11\n\talgorithm\x18\x03 \x01(\t\"9\n\x06output\x12\x0e\n\x06status\x18\x01 \x01(\t\x12\x1f\n\nhom_matrix\x18\x02 \x03(\x0b\x32\x0b.matrix_row\"\x19\n\nmatrix_row\x12\x0b\n\x03row\x18\x01 \x03(\x02\x32\x37\n\x10PointRegistering\x12#\n\x0eregisterPoints\x12\x06.input\x1a\x07.output\"\x00\x62\x06proto3'
 )
 
 
@@ -170,19 +170,19 @@ _sym_db.RegisterMessage(matrix_row)
 
 
 
-_POINTMATCHER = _descriptor.ServiceDescriptor(
-  name='PointMatcher',
-  full_name='PointMatcher',
+_POINTREGISTERING = _descriptor.ServiceDescriptor(
+  name='PointRegistering',
+  full_name='PointRegistering',
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
   serialized_start=186,
-  serialized_end=237,
+  serialized_end=241,
   methods=[
   _descriptor.MethodDescriptor(
-    name='point_matching',
-    full_name='PointMatcher.point_matching',
+    name='registerPoints',
+    full_name='PointRegistering.registerPoints',
     index=0,
     containing_service=None,
     input_type=_INPUT,
@@ -191,8 +191,8 @@ _POINTMATCHER = _descriptor.ServiceDescriptor(
     create_key=_descriptor._internal_create_key,
   ),
 ])
-_sym_db.RegisterServiceDescriptor(_POINTMATCHER)
+_sym_db.RegisterServiceDescriptor(_POINTREGISTERING)
 
-DESCRIPTOR.services_by_name['PointMatcher'] = _POINTMATCHER
+DESCRIPTOR.services_by_name['PointRegistering'] = _POINTREGISTERING
 
 # @@protoc_insertion_point(module_scope)
