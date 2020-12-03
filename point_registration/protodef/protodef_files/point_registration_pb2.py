@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x18point_registration.proto\"F\n\x05input\x12\x14\n\x0cvector_data1\x18\x01 \x03(\x02\x12\x14\n\x0cvector_data2\x18\x02 \x03(\x02\x12\x11\n\talgorithm\x18\x03 \x01(\t\"9\n\x06output\x12\x0e\n\x06status\x18\x01 \x01(\t\x12\x1f\n\nhom_matrix\x18\x02 \x03(\x0b\x32\x0b.matrix_row\"\x19\n\nmatrix_row\x12\x0b\n\x03row\x18\x01 \x03(\x02\x32\x37\n\x10PointRegistering\x12#\n\x0eregisterPoints\x12\x06.input\x1a\x07.output\"\x00\x62\x06proto3'
+  serialized_pb=b'\n\x18point_registration.proto\"V\n\x05input\x12\x1c\n\x0bpoint_set_1\x18\x01 \x03(\x0b\x32\x07.vector\x12\x1c\n\x0bpoint_set_2\x18\x02 \x03(\x0b\x32\x07.vector\x12\x11\n\talgorithm\x18\x03 \x01(\t\"c\n\x06output\x12\x0e\n\x06status\x18\x01 \x01(\t\x12$\n\x0frotation_matrix\x18\x02 \x03(\x0b\x32\x0b.matrix_row\x12#\n\x12translation_vector\x18\x03 \x01(\x0b\x32\x07.vector\"\x19\n\nmatrix_row\x12\x0b\n\x03row\x18\x01 \x03(\x02\"\x1d\n\x06vector\x12\x13\n\x0bvector_data\x18\x01 \x03(\x02\x32\x37\n\x10PointRegistering\x12#\n\x0eregisterPoints\x12\x06.input\x1a\x07.output\"\x00\x62\x06proto3'
 )
 
 
@@ -34,15 +34,15 @@ _INPUT = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='vector_data1', full_name='input.vector_data1', index=0,
-      number=1, type=2, cpp_type=6, label=3,
+      name='point_set_1', full_name='input.point_set_1', index=0,
+      number=1, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='vector_data2', full_name='input.vector_data2', index=1,
-      number=2, type=2, cpp_type=6, label=3,
+      name='point_set_2', full_name='input.point_set_2', index=1,
+      number=2, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -67,7 +67,7 @@ _INPUT = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=28,
-  serialized_end=98,
+  serialized_end=114,
 )
 
 
@@ -87,9 +87,16 @@ _OUTPUT = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='hom_matrix', full_name='output.hom_matrix', index=1,
+      name='rotation_matrix', full_name='output.rotation_matrix', index=1,
       number=2, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='translation_vector', full_name='output.translation_vector', index=2,
+      number=3, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
@@ -105,8 +112,8 @@ _OUTPUT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=100,
-  serialized_end=157,
+  serialized_start=116,
+  serialized_end=215,
 )
 
 
@@ -137,14 +144,50 @@ _MATRIX_ROW = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=159,
-  serialized_end=184,
+  serialized_start=217,
+  serialized_end=242,
 )
 
-_OUTPUT.fields_by_name['hom_matrix'].message_type = _MATRIX_ROW
+
+_VECTOR = _descriptor.Descriptor(
+  name='vector',
+  full_name='vector',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='vector_data', full_name='vector.vector_data', index=0,
+      number=1, type=2, cpp_type=6, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=244,
+  serialized_end=273,
+)
+
+_INPUT.fields_by_name['point_set_1'].message_type = _VECTOR
+_INPUT.fields_by_name['point_set_2'].message_type = _VECTOR
+_OUTPUT.fields_by_name['rotation_matrix'].message_type = _MATRIX_ROW
+_OUTPUT.fields_by_name['translation_vector'].message_type = _VECTOR
 DESCRIPTOR.message_types_by_name['input'] = _INPUT
 DESCRIPTOR.message_types_by_name['output'] = _OUTPUT
 DESCRIPTOR.message_types_by_name['matrix_row'] = _MATRIX_ROW
+DESCRIPTOR.message_types_by_name['vector'] = _VECTOR
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 input = _reflection.GeneratedProtocolMessageType('input', (_message.Message,), {
@@ -168,6 +211,13 @@ matrix_row = _reflection.GeneratedProtocolMessageType('matrix_row', (_message.Me
   })
 _sym_db.RegisterMessage(matrix_row)
 
+vector = _reflection.GeneratedProtocolMessageType('vector', (_message.Message,), {
+  'DESCRIPTOR' : _VECTOR,
+  '__module__' : 'point_registration_pb2'
+  # @@protoc_insertion_point(class_scope:vector)
+  })
+_sym_db.RegisterMessage(vector)
+
 
 
 _POINTREGISTERING = _descriptor.ServiceDescriptor(
@@ -177,8 +227,8 @@ _POINTREGISTERING = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=186,
-  serialized_end=241,
+  serialized_start=275,
+  serialized_end=330,
   methods=[
   _descriptor.MethodDescriptor(
     name='registerPoints',
