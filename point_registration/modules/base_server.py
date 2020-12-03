@@ -1,41 +1,32 @@
-import unary.unary_pb2 as unary_pb2
-import unary.unary_pb2_grpc as unary_pb2_grpc
-import logging
-from concurrent import futures
-from config.config import PORT
-
-import grpc
-
-class
+from typing import Tuple
+import numpy as np
+import point_registration_pb2
+import point_registration_pb2_grpc
+from modules.algorithms.kabsch import KabschAlgorithm
+from typing import Tuple
 
 
-class SimpelCom(unary_pb2_grpc.SimpelComServicer):
-    def NumberTrade(self, request, context):
-        logging.error(f"Data: {request.name}")
-        accuracy = sum(request.data)/len(request.data)
-        std = request.brightness*4
-        objToReturn = unary_pb2.ProcesQuality(
-            quality="good",
-            accuracy=accuracy,
-            standard_deviation=std,
+class PointRegistering(point_registration_pb2_grpc.PointRegisteringServicer):
+    def registerPoints(self, request, context):
+        point_set_1, point_set_2 = self.prepare_data(request)
+        if request.algorithm == "kabsch":
+            # TODO: use api.types to implement these as enumns rather than string
+
+            R, t = KabschAlgorithm().register_points(point_set_1, point_set_2)
+        if request.algorithm == "opencv":
+            raise NotImplementedError
+        response = point_registration_pb2.output(
+            rotation_matrix=[point_registration_pb2.matrix_row(row=x)
+                             for x in np.ndarray.tolist(R)],
+            translation_vector=point_registration_pb2.vector(
+                vector_data=t)
         )
-        return objToReturn
+        return response
 
-
-def serve():
-    server = grpc.server(thread_pool=futures.ThreadPoolExecutor(max_workers=2))
-    unary_pb2_grpc.add_SimpelComServicer_to_server(
-        servicer=SimpelCom(), server=server)
-    server.add_insecure_port(f"[::]:{PORT}")
-    server.start()
-    server.wait_for_termination()
-
-
-class Server:
-    def serve(self):
-        logging.error(f"Server started on Port {PORT}")
-        serve()
-
-
-if __name__ == "__main__":
-    Server().serve()
+    def prepare_data(self, request) -> Tuple[np.ndarray, np.ndarray]:
+        point_set_1 = list()
+        point_set_2 = list()
+        for x in request.point_set_1:
+            point_set_1.append(np.array(x.vector_data))
+        point_set_2 = [np.array(x.vector_data) for x in request.point_set_2]
+        return np.array(point_set_1), np.array(point_set_2)
