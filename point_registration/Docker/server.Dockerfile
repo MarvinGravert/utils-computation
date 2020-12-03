@@ -1,9 +1,8 @@
-FROM python:3.8-slim
+FROM base_point_registration
 
-WORKDIR /point_matching
-ADD config ./config
-COPY requirements requirements
+COPY modules modules
 COPY server.py .
 
-ENTRYPOINT [ "python","-u","server.py" ]
+CMD [ "python","-u","server.py" ]
 
+# docker-compose 
