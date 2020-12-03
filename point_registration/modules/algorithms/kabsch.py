@@ -24,7 +24,7 @@ class KabschAlgorithm(BaseAlgorithm):
 
     def register_points(self, point_set_1: np.ndarray,
                         point_set_2: np.ndarray
-                        ) -> Tuple(np.ndarray, np.ndarray):
+                        ) -> Tuple[np.ndarray, np.ndarray]:
         """Find transformation from set 1 to set 2 using Kabsch
 
             inspired by:
