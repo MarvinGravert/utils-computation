@@ -1,7 +1,7 @@
 from decouple import config
 from config.api_types import Example
 
-GRPC_PORT = config("GRPC_PORT", cast=str, default="50051")
+GRPC_PORT = config("GRPC_PORT", cast=int, default=50051)
 RUNTIME_HOST = config("RUNTIME_HOST", cast=str, default="[::]")
 
 
