@@ -45,7 +45,6 @@ def generate_proto_code():
             f'--python_out={folder_name}',
             f'--grpc_python_out={folder_name}',
             file_path])
-
     # the following lines
 
     # """
@@ -65,8 +64,8 @@ def generate_proto_code():
     #         file.seek(0)
     #         file.write(re.sub(r'(import .+_pb2.*)', 'from . \\1', code))
     #         file.truncate()
-    # return list(chain.from_iterable(
-    #             [f"{name}_pb2", f"{name}_pb2_grpc"] for name in file_name_list))
+    return list(chain.from_iterable(
+                [f"{name}_pb2", f"{name}_pb2_grpc"] for name in file_name_list))
 
 
 if __name__ == "__main__":
