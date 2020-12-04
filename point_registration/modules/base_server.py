@@ -3,7 +3,9 @@ import numpy as np
 import point_registration_pb2
 import point_registration_pb2_grpc
 from modules.algorithms.kabsch import KabschAlgorithm
+from modules.algorithms.opencv import OpencvAlgorithm
 from typing import Tuple
+import grpc
 
 
 class PointRegistering(point_registration_pb2_grpc.PointRegisteringServicer):
@@ -11,10 +13,10 @@ class PointRegistering(point_registration_pb2_grpc.PointRegisteringServicer):
         point_set_1, point_set_2 = self.prepare_data(request)
         if request.algorithm == "kabsch":
             # TODO: use api.types to implement these as enumns rather than string
-
             R, t = KabschAlgorithm().register_points(point_set_1, point_set_2)
         if request.algorithm == "opencv":
-            raise NotImplementedError
+            R, t = OpencvAlgorithm().register_points(point_set_1, point_set_2)
+
         response = point_registration_pb2.output(
             rotation_matrix=[point_registration_pb2.matrix_row(row=x)
                              for x in np.ndarray.tolist(R)],
