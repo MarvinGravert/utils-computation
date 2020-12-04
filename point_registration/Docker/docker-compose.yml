@@ -6,6 +6,9 @@ services:
     build:
       context: ../
       dockerfile: ./Docker/server.Dockerfile
+      # network: host
+    ports:
+      - "50051:50051"
       
 
 
