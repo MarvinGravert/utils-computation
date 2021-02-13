@@ -11,19 +11,6 @@ from config.config import RANSAC_CONFIDENCE, RANSAC_THRESHOLD
 
 
 class OpencvAlgorithm(BaseAlgorithm):
-    def check_adjust_dimension(self, point_set: np.ndarray
-                               ) -> np.ndarray:
-        # check data transmitted in column matrix or in row matrix and transform
-        # into column matrix
-        row, column = point_set.shape
-        if row == 3 and column >= 3:
-            # column matrix
-            return point_set
-        elif row >= 3 and column == 3:
-            # row matrix
-            return point_set.T
-        else:
-            raise Exception("Data matrix not correct format")
 
     def register_points(self, point_set_1: np.ndarray,
                         point_set_2: np.ndarray
@@ -48,10 +35,23 @@ class OpencvAlgorithm(BaseAlgorithm):
         A = self.check_adjust_dimension(point_set_1)
         B = self.check_adjust_dimension(point_set_2)
         A = A.T
+        logging.debug(f"\n {A}")
         B = B.T
+        logging.debug(f"\n {B}")
         retval, out, inlier = cv2.estimateAffine3D(src=A,
                                                    dst=B,
                                                    ransacThreshold=RANSAC_THRESHOLD,
                                                    confidence=RANSAC_CONFIDENCE,
                                                    )
+        logging.info(f"Number of point correspondances: {A.shape[0]}")
+        logging.info(
+            f"Number of inlier: {sum([1 if x == 1 else 0 for x in inlier])}")
+
+        logging.info(f"""
+            Parameters used for ransac:
+            Threshold {RANSAC_THRESHOLD}
+            CONFIDENCE {RANSAC_CONFIDENCE}
+        """)
+        logging.info(f"Result: \n {out}")
+
         return out[:, :3], out[:, 3]
