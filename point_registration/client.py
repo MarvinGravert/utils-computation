@@ -24,7 +24,7 @@ from typing import Any, Tuple, Dict, List
 import grpc
 import numpy as np
 
-from point_set_registration_pb2 import Algorithm, Vector, Input
+from point_set_registration_pb2 import Algorithm, Vector, Input, RANSACParameters
 import point_set_registration_pb2_grpc
 
 from config.config import GRPC_PORT, RUNTIME_HOST
@@ -53,13 +53,13 @@ def run(point_set_1:np.ndarray,
 
         point_set_1 = [Vector(entries=x) for x in point_set_1]
         point_set_2 = [Vector(entries=x) for x in point_set_2]
-        objToSend = Input(
+        obj_to_send = Input(
             algorithm=algorithm,
             pointSet_1=point_set_1,
             pointSet_2=point_set_2,
         )
         logger.debug(f"Starting request with: {algorithm=}")
-        response = stub.registerPointSet(objToSend)
+        response = stub.registerPointSet(obj_to_send)
     logger.info("Received response, closing RPC")
     logger.debug(f"{response=}")
 
@@ -115,7 +115,7 @@ def run_with_config(point_set_1:np.ndarray,
     if ransac_parameters:
         algorithm=Algorithm(type=Algorithm.Type.Value(type),
                             optimize=optimize,
-                            ransac=Algorithm.RANSACParameters(
+                            ransac=RANSACParameters(
                                 threshold=ransac_parameters[0],
                                 confidence=ransac_parameters[1]
                                 )
@@ -124,7 +124,7 @@ def run_with_config(point_set_1:np.ndarray,
     else:
         algorithm=Algorithm(type=Algorithm.Type.Value(type),
                     optimize=optimize,
-                    ransac=Algorithm.RANSACParameters(
+                    ransac=RANSACParameters(
                         threshold=ransac_parameters[0],
                         confidence=ransac_parameters[1]
                         )
@@ -154,9 +154,9 @@ def get_data_from_file(file_location_1="point_set_1.txt",
 if __name__ == "__main__":
     logger.info("Running client directly")
     algo=Algorithm(
-        type=Algorithm.Type.ARUN,
-        optimize=False,
-        ransac=Algorithm.RANSACParameters(threshold=3,confidence=2)
+        type=Algorithm.Type.OPENCV,
+        optimize=True,
+        ransac=RANSACParameters(threshold=3,confidence=2)
     )
     point_set_1, point_set_2 = get_data_from_file()
     run(point_set_1=point_set_1, point_set_2=point_set_2 ,algorithm=algo)

@@ -1,18 +1,26 @@
 """
 Find Transformation from Point Set 1 to Point Set 1 using Kabsch algorithm
 """
-from modules.base_compute import BaseAlgorithm
-import numpy as np
-import cv2
-import logging
 from typing import Tuple
 
+import numpy as np
+import cv2
+from loguru import logger
+
+from point_set_registration_pb2 import RANSACParameters
+
 from config.config import RANSAC_CONFIDENCE, RANSAC_THRESHOLD
-
-
+from modules.base_compute import BaseAlgorithm
 class OpencvAlgorithm(BaseAlgorithm):
 
-    def register_points(self, point_set_1: np.ndarray,
+    def __init__(self,ransac_parameters:RANSACParameters):
+        if ransac_parameters is not None:
+            self._threshold=ransac_parameters.threshold
+            self._confidence=ransac_parameters.confidence
+        else:
+            self._threshold=RANSAC_THRESHOLD
+            self._confidence=RANSAC_CONFIDENCE
+    def register_point_set(self, point_set_1: np.ndarray,
                         point_set_2: np.ndarray
                         ) -> Tuple[np.ndarray, np.ndarray]:
         """Find optimal affine transformation between the points sets 
@@ -32,26 +40,26 @@ class OpencvAlgorithm(BaseAlgorithm):
         # R = 3x3 rotation matrix
         # t = 3x1 column vector
 
-        A = self.check_adjust_dimension(point_set_1)
-        B = self.check_adjust_dimension(point_set_2)
+        A = self._check_and_adjust_dimension(point_set_1)
+        B = self._check_and_adjust_dimension(point_set_2)
         A = A.T
-        logging.debug(f"\n {A}")
+        logger.debug(f"\n {A}")
         B = B.T
-        logging.debug(f"\n {B}")
+        logger.debug(f"\n {B}")
         retval, out, inlier = cv2.estimateAffine3D(src=A,
                                                    dst=B,
-                                                   ransacThreshold=RANSAC_THRESHOLD,
-                                                   confidence=RANSAC_CONFIDENCE,
+                                                   ransacThreshold=self._threshold,
+                                                   confidence=self._confidence,
                                                    )
-        logging.info(f"Number of point correspondances: {A.shape[0]}")
-        logging.info(
+        logger.debug(f"Number of point correspondances: {A.shape[0]}")
+        logger.debug(
             f"Number of inlier: {sum([1 if x == 1 else 0 for x in inlier])}")
 
-        logging.info(f"""
+        logger.debug(f"""
             Parameters used for ransac:
-            Threshold {RANSAC_THRESHOLD}
-            CONFIDENCE {RANSAC_CONFIDENCE}
+            Threshold {self._threshold}
+            CONFIDENCE {self._confidence}
         """)
-        logging.info(f"Result: \n {out}")
+        logger.info(f"Result: \n {out}")
 
         return out[:, :3], out[:, 3]

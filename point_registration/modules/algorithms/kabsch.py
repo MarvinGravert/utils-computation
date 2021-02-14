@@ -1,15 +1,19 @@
 """
 Find Transformation from Point Set 1 to Point Set 1 using Kabsch algorithm
 """
-from modules.base_compute import BaseAlgorithm
-import numpy as np
-import logging
 from typing import Tuple
+
+import numpy as np
+
+from loguru import logger
+
+
+from modules.base_compute import BaseAlgorithm
 
 
 class KabschAlgorithm(BaseAlgorithm):
 
-    def register_points(self, point_set_1: np.ndarray,
+    def register_point_set(self, point_set_1: np.ndarray,
                         point_set_2: np.ndarray
                         ) -> Tuple[np.ndarray, np.ndarray]:
         """Find transformation from set 1 to set 2 using Kabsch
@@ -33,8 +37,8 @@ class KabschAlgorithm(BaseAlgorithm):
         # R = 3x3 rotation matrix
         # t = 3x1 column vector
 
-        A = self.check_adjust_dimension(point_set_1)
-        B = self.check_adjust_dimension(point_set_2)
+        A = self._check_and_adjust_dimension(point_set_1)
+        B = self._check_and_adjust_dimension(point_set_2)
 
         # find mean column wise
         centroid_A = np.mean(A, axis=1)
@@ -61,11 +65,10 @@ class KabschAlgorithm(BaseAlgorithm):
 
         # special reflection case
         if np.linalg.det(R) < 0:
-            logging.info(
+            logger.info(
                 "det(R) < R, reflection detected!, correcting for it ...")
             Vt[2, :] *= -1
             R = Vt.T @ U.T
 
         t = -R @ centroid_A + centroid_B
-
         return R, t
