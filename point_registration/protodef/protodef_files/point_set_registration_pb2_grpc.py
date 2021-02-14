@@ -2,10 +2,10 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import point_registration_pb2 as point__registration__pb2
+import point_set_registration_pb2 as point__set__registration__pb2
 
 
-class PointRegisteringStub(object):
+class PointSetRegisteringStub(object):
     """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
@@ -14,42 +14,42 @@ class PointRegisteringStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.registerPoints = channel.unary_unary(
-                '/PointRegistering/registerPoints',
-                request_serializer=point__registration__pb2.input.SerializeToString,
-                response_deserializer=point__registration__pb2.output.FromString,
+        self.registerPointSet = channel.unary_unary(
+                '/PointSetRegistering/registerPointSet',
+                request_serializer=point__set__registration__pb2.Input.SerializeToString,
+                response_deserializer=point__set__registration__pb2.Output.FromString,
                 )
 
 
-class PointRegisteringServicer(object):
+class PointSetRegisteringServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def registerPoints(self, request, context):
+    def registerPointSet(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
 
-def add_PointRegisteringServicer_to_server(servicer, server):
+def add_PointSetRegisteringServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'registerPoints': grpc.unary_unary_rpc_method_handler(
-                    servicer.registerPoints,
-                    request_deserializer=point__registration__pb2.input.FromString,
-                    response_serializer=point__registration__pb2.output.SerializeToString,
+            'registerPointSet': grpc.unary_unary_rpc_method_handler(
+                    servicer.registerPointSet,
+                    request_deserializer=point__set__registration__pb2.Input.FromString,
+                    response_serializer=point__set__registration__pb2.Output.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'PointRegistering', rpc_method_handlers)
+            'PointSetRegistering', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
  # This class is part of an EXPERIMENTAL API.
-class PointRegistering(object):
+class PointSetRegistering(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def registerPoints(request,
+    def registerPointSet(request,
             target,
             options=(),
             channel_credentials=None,
@@ -59,8 +59,8 @@ class PointRegistering(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/PointRegistering/registerPoints',
-            point__registration__pb2.input.SerializeToString,
-            point__registration__pb2.output.FromString,
+        return grpc.experimental.unary_unary(request, target, '/PointSetRegistering/registerPointSet',
+            point__set__registration__pb2.Input.SerializeToString,
+            point__set__registration__pb2.Output.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
