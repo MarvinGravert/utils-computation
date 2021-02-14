@@ -5,13 +5,14 @@ This module acts as a server which accepts 3D point pairs (maybe 2D later) and p
 ## API
 
 The api is implemnted using grpc.
-Client->Server:
+
+### Client->Server
 
 * **pointSet_1**: array of (x,y,z) points of point set 1
 * **pointSet_2**: array of (x,y,z) points of points set 2
 * **algorithm**: Definings the type of algorith, whether result is optimized and the ransac parameters. See below for more details
 
-Server->Client:
+### Server->Client
 
 * **status**: string success or not: => string due to it beign easier to extend
 * **rotationMatrix**: repeated list of float. Row major rotation matrix
