@@ -108,11 +108,11 @@ def run_with_config(point_set_1:np.ndarray,
     # just build the configuration from the dict and then use the run function
     logger.info("Starting the building the config from the dictionary")
     logger.debug(f"{algorithm_config=}")
-    optimize:bool=algorithm_config.get("optimize", default=False)
-    ransac_parameters:List[float,float]=algorithm_config.get("ransac", default=None)
-    type:str=algorithm_config.get("type", default="ARUN")
+    optimize:bool=algorithm_config.get("optimize", False)
+    ransac_parameters:List[float,float]=algorithm_config.get("ransac", None)
+    type:str=algorithm_config.get("type", "ARUN")
 
-    if ransac_parameters:
+    if ransac_parameters is not None:
         algorithm=Algorithm(type=Algorithm.Type.Value(type),
                             optimize=optimize,
                             ransac=RANSACParameters(
@@ -124,10 +124,6 @@ def run_with_config(point_set_1:np.ndarray,
     else:
         algorithm=Algorithm(type=Algorithm.Type.Value(type),
                     optimize=optimize,
-                    ransac=RANSACParameters(
-                        threshold=ransac_parameters[0],
-                        confidence=ransac_parameters[1]
-                        )
                     )
         return run(point_set_1=point_set_1,point_set_2=point_set_2,algorithm=algorithm)
 
