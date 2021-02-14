@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x1cpoint_set_registration.proto\"`\n\x05Input\x12\x1b\n\npointSet_1\x18\x01 \x03(\x0b\x32\x07.Vector\x12\x1b\n\npointSet_2\x18\x02 \x03(\x0b\x32\x07.Vector\x12\x1d\n\talgorithm\x18\x03 \x01(\x0b\x32\n.Algorithm\"`\n\x06Output\x12\x0e\n\x06status\x18\x01 \x01(\t\x12\"\n\x0erotationMatrix\x18\x02 \x03(\x0b\x32\n.MatrixRow\x12\"\n\x11translationVector\x18\x03 \x01(\x0b\x32\x07.Vector\"\x18\n\tMatrixRow\x12\x0b\n\x03row\x18\x01 \x03(\x02\"\x19\n\x06Vector\x12\x0f\n\x07\x65ntries\x18\x01 \x03(\x02\"\x8d\x01\n\tAlgorithm\x12\x1d\n\x04type\x18\x01 \x01(\x0e\x32\x0f.Algorithm.Type\x12\x10\n\x08optimize\x18\x02 \x01(\x08\x12!\n\x06ransac\x18\x03 \x01(\x0b\x32\x11.RANSACParameters\",\n\x04Type\x12\x08\n\x04\x41RUN\x10\x00\x12\n\n\x06KABSCH\x10\x00\x12\n\n\x06OPENCV\x10\x01\x1a\x02\x10\x01\"9\n\x10RANSACParameters\x12\x11\n\tthreshold\x18\x01 \x01(\x02\x12\x12\n\nconfidence\x18\x02 \x01(\x02\x32<\n\x13PointSetRegistering\x12%\n\x10registerPointSet\x12\x06.Input\x1a\x07.Output\"\x00\x62\x06proto3'
+  serialized_pb=b'\n\x1cpoint_set_registration.proto\"`\n\x05Input\x12\x1b\n\npointSet_1\x18\x01 \x03(\x0b\x32\x07.Vector\x12\x1b\n\npointSet_2\x18\x02 \x03(\x0b\x32\x07.Vector\x12\x1d\n\talgorithm\x18\x03 \x01(\x0b\x32\n.Algorithm\"`\n\x06Output\x12\x0e\n\x06status\x18\x01 \x01(\t\x12\"\n\x0erotationMatrix\x18\x02 \x03(\x0b\x32\n.MatrixRow\x12\"\n\x11translationVector\x18\x03 \x01(\x0b\x32\x07.Vector\"\x18\n\tMatrixRow\x12\x0b\n\x03row\x18\x01 \x03(\x02\"\x19\n\x06Vector\x12\x0f\n\x07\x65ntries\x18\x01 \x03(\x02\"\x9a\x01\n\tAlgorithm\x12\x1d\n\x04type\x18\x01 \x01(\x0e\x32\x0f.Algorithm.Type\x12\x10\n\x08optimize\x18\x02 \x01(\x08\x12!\n\x06ransac\x18\x03 \x01(\x0b\x32\x11.RANSACParameters\"9\n\x04Type\x12\x08\n\x04\x41RUN\x10\x00\x12\n\n\x06KABSCH\x10\x00\x12\n\n\x06OPENCV\x10\x01\x12\x0b\n\x07UMEYAMA\x10\x01\x1a\x02\x10\x01\"9\n\x10RANSACParameters\x12\x11\n\tthreshold\x18\x01 \x01(\x02\x12\x12\n\nconfidence\x18\x02 \x01(\x02\x32<\n\x13PointSetRegistering\x12%\n\x10registerPointSet\x12\x06.Input\x1a\x07.Output\"\x00\x62\x06proto3'
 )
 
 
@@ -46,11 +46,16 @@ _ALGORITHM_TYPE = _descriptor.EnumDescriptor(
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
+    _descriptor.EnumValueDescriptor(
+      name='UMEYAMA', index=3, number=1,
+      serialized_options=None,
+      type=None,
+      create_key=_descriptor._internal_create_key),
   ],
   containing_type=None,
   serialized_options=b'\020\001',
   serialized_start=379,
-  serialized_end=423,
+  serialized_end=436,
 )
 _sym_db.RegisterEnumDescriptor(_ALGORITHM_TYPE)
 
@@ -254,7 +259,7 @@ _ALGORITHM = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=282,
-  serialized_end=423,
+  serialized_end=436,
 )
 
 
@@ -292,8 +297,8 @@ _RANSACPARAMETERS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=425,
-  serialized_end=482,
+  serialized_start=438,
+  serialized_end=495,
 )
 
 _INPUT.fields_by_name['pointSet_1'].message_type = _VECTOR
@@ -364,8 +369,8 @@ _POINTSETREGISTERING = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=484,
-  serialized_end=544,
+  serialized_start=497,
+  serialized_end=557,
   methods=[
   _descriptor.MethodDescriptor(
     name='registerPointSet',

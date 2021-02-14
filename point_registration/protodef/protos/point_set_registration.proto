@@ -27,6 +27,7 @@ message Algorithm{
         ARUN=0;
         KABSCH=0;
         OPENCV=1;
+        UMEYAMA=1;
         //
     }
     Type type=1;
