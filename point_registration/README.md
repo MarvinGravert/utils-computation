@@ -43,5 +43,5 @@ optimization is run on the result.
 Use the docker-compose or start the server.py from the main directory.
 Put a .txt file called `point_set_1.txt` and `point_set_2.txt` into the main directory. One observation per line and seperated by space in the format x y z.
 
-The "run" or "run_with_config" function from the client can be imported to be used
+The `run` or `run_with_config` function from the client can be imported to be used
 seperatedly. The later allows usage without importing the grpc libraries directly
