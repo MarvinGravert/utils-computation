@@ -7,23 +7,23 @@ This module acts as a server which accepts 3D point pairs (maybe 2D later) and p
 The api is implemnted using grpc.
 Client->Server:
 
-* **vector_data1**: array of (x,y,z) points of point set 1
-* **vector_data2**: array of (x,y,z) points of points set 2
+* **pointSet_1**: array of (x,y,z) points of point set 1
+* **pointSet_2**: array of (x,y,z) points of points set 2
 * **algorithm**: Definings the type of algorith, whether result is optimized and the ransac parameters. See below for more details
 
 Server->Client:
 
 * **status**: string success or not: => string due to it beign easier to extend
-* **rotation_matrix**: repeated list of float. Row major rotation matrix
-* **translation_vector**: repeated float
+* **rotationMatrix**: repeated list of float. Row major rotation matrix
+* **translationVector**: repeated float
 
 ### Algorithm config
 
 The config is passed as an grpc object though the  client offers a function to create this configuration via a dictionary:
 
-* type: Type of Algorithm [str]
-* optimize: optimize y/n [bool]
-* ransac: Threshold, confidence List[float,float]
+* **type**: Type of Algorithm [str]
+* **optimize**: optimize y/n [bool]
+* **ransac**: Threshold, confidence List[float,float]
 
 ## Algorithms
 
