@@ -16,7 +16,7 @@ def check_adjust_dimension(point_set: np.ndarray) -> np.ndarray:
         return point_set
     else:
         raise Exception("Data matrix not correct format")
-def check_results(point_set_1:np.ndarray,
+def check_cost_function(point_set_1:np.ndarray,
             point_set_2:np.ndarray,
             R:np.ndarray,t:np.ndarray)->float:
     """module transforms point_set_1 into the frame of the second point set 
@@ -37,8 +37,9 @@ def check_results(point_set_1:np.ndarray,
     p2= check_adjust_dimension(point_set=point_set_2)
     #each row is corresponding to another one in the other point set
     sum=0
+    length=p1.shape[0]
     for vec1,vec2 in zip(p1,p2):
         temp=R@vec1.reshape([3,1]) +t.reshape([3,1]) #transform vec1 into frame of vec2
         diff=np.linalg.norm(vec2-temp)
         sum+=diff
-    return sum
+    return sum/length
