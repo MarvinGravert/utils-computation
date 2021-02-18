@@ -59,7 +59,7 @@ class Optimizer():
         """
         residuals=[]
         ## Set R,t depending on what optimisation case
-        ## Case is clear via the length
+        ## Case is clear via the length#TODO: ensure dass der gesamte Vektor zurückkommt und nicht die Norm 
         if len(X)==12:
             R:np.ndarray=X[0:9].reshape([3,3])
             t:np.ndarray=X[9:].reshape([3,1])
@@ -72,8 +72,10 @@ class Optimizer():
 
         for vec_A, vec_B in zip(self._point_set_1,self._point_set_2):
             vec_A_in_B=R@vec_A.reshape([3,1])+t
-            residuals.append(np.linalg.norm(vec_B-vec_A_in_B))
-            # residuals.extend((vec_B-vec_A_B).tolist())
+            # residuals.append(np.linalg.norm(vec_B-vec_A_in_B))
+            temp=(vec_B.reshape([3,1])-vec_A_in_B)
+            for e in temp:
+                residuals.append(float(e))
         return np.array(residuals)
     
     
